@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="./base.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <title>QR Code reader application</title>
+</head>
+<body>
+    <div class="loadingDiv" id="loadingDiv">
+        <div class="spinner-grow" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+    </div>
+    <div class="main">
+        <header class="header">
+            <p style="margin: 0; padding: 2%; font-size: 175%;">Welcome to <strong>QR Code Reader Application</strong></p>
+        </header>
+        <form class="form" enctype="multipart/form-data" action="/getQRData" method="POST">
+            <!-- MAX_FILE_SIZE (maximum file size in bytes) must precede the file input field used to upload the QR code image -->
+            <input type="hidden" name="MAX_FILE_SIZE" value="1048576" />
+            <!-- The "name" of the input field has to be "file" as it is the name of the POST parameter -->
+            Choose QR code image to read/scan: <input name="qrCode" type="file" />
+            
+            <div class="Read-button">
+                <button type="submit" onclick="loading()" class="btn btn-info Read-btn">Read QR code</button>
+                <!-- <input class="Read-btn" type="submit" value="Read QR code" /> -->
+            </div>
+        </form>
+
+        <div class="jumbotron jumbotron-fluid" style="text-align: center;">
+            <div class="container">
+              <h1 class="display-4" id="responseTitle">OUTPUT</h1>
+              <p class="lead" id="responseDiv"></p>
+            </div>
+          </div>
+    </div>
+    <script>
+        function loading() {
+            document.getElementById("loadingDiv").style.display = "block"
+        }
+    </script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
